@@ -82,7 +82,7 @@ class InventoriesController extends Controller
         $dir = $request->SortType;
         $helpers = new helpers();
 
-        $inventories = Inventorie::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+        $inventories = Inventorie::with('user')->where('deleted_at', '=', null)->where(function ($query) use ($request) {
                 return $query->when($request->filled('search'), function ($query) use ($request) {
                     return $query->where('ar_name', 'LIKE', "%{$request->search}%")
                         ->orWhere('en_name', 'LIKE', "%{$request->search}%");
@@ -106,6 +106,7 @@ class InventoriesController extends Controller
                  $item['session_status'] =  $va->session_status;
                  $item['location'] =  $room->floor->location->ar_name;
                  $item['room'] =  $room->ar_name;
+                 $item['email'] =  $room->user->email;
                  $item['floor'] =  $room->floor->ar_name;
                  $data[] = $item;
             }

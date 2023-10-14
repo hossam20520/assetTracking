@@ -217,7 +217,12 @@ export default {
           tdClass: "text-left",
           thClass: "text-left"
         },
-
+        {
+          label: this.$t("user"),
+          field: "email",
+          tdClass: "text-left",
+          thClass: "text-left"
+        },
         {
           label: this.$t("location"),
           field: "location",
