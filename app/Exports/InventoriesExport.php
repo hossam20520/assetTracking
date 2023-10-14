@@ -33,7 +33,7 @@ class InventoriesExport implements FromArray, WithHeadings, ShouldAutoSize, With
         $Assets = Item::with('Major' , 'Minor' , 'detailed' , 'room')->where('deleted_at' , '=' , null)->get();
         foreach ( $Assets as   $asset ) {
             $item['location_uuid'] =  $asset->room->floor->location->uuid;
-            $item['location_name'] = $asset->ar_name;
+            $item['location_name'] = $asset->room->floor->location->ar_name;
             $item['room_floar_uuid'] = $asset->room->floor->uuid;
             $item['room_floar'] = $asset->room->floor->ar_name;
             $item['room_floar_join_location_uuid'] =  $asset->room->floor->location->uuid;
