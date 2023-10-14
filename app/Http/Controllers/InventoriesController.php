@@ -106,7 +106,7 @@ class InventoriesController extends Controller
                  $item['session_status'] =  $va->session_status;
                  $item['location'] =  $room->floor->location->ar_name;
                  $item['room'] =  $room->ar_name;
-                 $item['email'] =  $room->user->email;
+                 $item['email'] =  $va->user->email;
                  $item['floor'] =  $room->floor->ar_name;
                  $data[] = $item;
             }
