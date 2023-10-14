@@ -95,7 +95,7 @@
             class="nav-item">
             <router-link tag="a" class to="/app/settings/Inventores">
               <img src="https://cdn-icons-png.flaticon.com/512/10998/10998071.png " width="50%"/> 
-              <span class="item-name">{{  $t('Inventore')  }}</span>
+              <span class="item-name">{{  $t('Inventories')  }}</span>
             </router-link>
           </li>
 

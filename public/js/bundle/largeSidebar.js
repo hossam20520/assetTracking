@@ -957,7 +957,7 @@ var render = function () {
                       }),
                       _vm._v(" "),
                       _c("span", { staticClass: "item-name" }, [
-                        _vm._v(_vm._s(_vm.$t("Inventore"))),
+                        _vm._v(_vm._s(_vm.$t("Inventories"))),
                       ]),
                     ]
                   ),
