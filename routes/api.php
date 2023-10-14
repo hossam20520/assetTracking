@@ -57,12 +57,9 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
     
     Route::get('/v1/device/session', 'device\AssetsController@session');
     //-------------------------- Clear Cache ---------------------------
-
     Route::get("Clear_Cache", "SettingsController@Clear_Cache");
 
-
     Route::resource('Numbers', 'NumbersController');
-
 
     //-------------------------- Reports ---------------------------
 
