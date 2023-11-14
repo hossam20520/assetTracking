@@ -4,8 +4,6 @@ namespace App\Http\Controllers\device;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-
 use Intervention\Image\Gd\Decoder;
 use App\Models\Item;
 use App\Models\Asset;
