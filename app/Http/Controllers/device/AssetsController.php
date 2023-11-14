@@ -252,9 +252,10 @@ class AssetsController extends Controller
          $path = public_path() . '/images/items';
          $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
-         $image_resize = Image::make($image->getRealPath());
+        //  $image_resize = Image::make($image->getRealPath());
          // $image_resize->resize(128, 128);
-         $image_resize->save(public_path('/images/items/' . $filename));
+         $image->move($path, $filename);
+        //  $image_resize->save(public_path('/images/items/' . $filename));
 
          $userPhoto = $path . '/' . $currentAvatar;
          if (file_exists($userPhoto)) {
