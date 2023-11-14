@@ -259,7 +259,7 @@ class AssetsController extends Controller
 
          $userPhoto = $path . '/' . $currentAvatar;
          if (file_exists($userPhoto)) {
-             if ($user->avatar != 'no_avatar.png') {
+             if ($item->image != 'no_avatar.png') {
                  @unlink($userPhoto);
              }
          }
