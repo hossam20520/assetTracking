@@ -42,7 +42,7 @@ Route::post('Items/barcodeone', 'device\AssetsController@barcodeone');
 Route::get('Item/assets/export/Excel/{date}', 'device\AssetsController@exportInventory');
 
 
-
+Route::get('/v1/device/asset/image', 'device\AssetsController@updateImage');
 Route::post("device/auth/login/", "device\AuthController@login");
 
 Route::group([

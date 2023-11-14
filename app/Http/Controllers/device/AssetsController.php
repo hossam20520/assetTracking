@@ -18,7 +18,7 @@ use App\utils\helpers;
 use Carbon\Carbon;
 use DB;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Intervention\Image\ImageManagerStatic as Image;
 class AssetsController extends Controller
 {
 
@@ -236,6 +236,56 @@ class AssetsController extends Controller
             $item['image'] = $firstimage[0];
             $data[] = $item;
         }
+    }
+
+
+    public function  updateImage(Request $request){
+        $helpers = new helpers();
+       
+
+         $id_item = $request['id'];
+         
+         $item = Item::where('uuid' , $id_item )->first();
+        
+         $currentAvatar = $item->image;
+
+
+         $image = $request->file('avatar');
+         $path = public_path() . '/images/items';
+         $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+         $image_resize = Image::make($image->getRealPath());
+         // $image_resize->resize(128, 128);
+         $image_resize->save(public_path('/images/items/' . $filename));
+
+         $userPhoto = $path . '/' . $currentAvatar;
+         if (file_exists($userPhoto)) {
+             if ($user->avatar != 'no_avatar.png') {
+                 @unlink($userPhoto);
+             }
+         }
+
+         // $filename = $currentAvatar;
+   
+
+        // return $filename;
+
+
+ Item::whereId($item->id)->update([
+
+     'image' => $filename,
+   
+ ]);
+
+
+
+
+ return response()->json(['status' => "success" ,  'message'=> $filename   ], 200);
+
+
+
+
+
     }
 
     public function session(Request $request){
