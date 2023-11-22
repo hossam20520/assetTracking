@@ -54,8 +54,20 @@ Route::group([
 
 Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
+
+
+    
+
     
     Route::get('/v1/device/session', 'device\AssetsController@session');
+
+
+    Route::get('/v1/device/trans', 'device\AssetsController@trans');
+
+
+    Route::get('/v1/device/room/updatee', 'device\AssetsController@updateRoom');
+    
+    // /api/v1/device/room/update
     //-------------------------- Clear Cache ---------------------------
     Route::get("Clear_Cache", "SettingsController@Clear_Cache");
 
@@ -109,6 +121,15 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
     Route::post('clients/delete/by_selection', 'ClientController@delete_by_selection');
 
 
+
+
+    
+    //------------------------------- Tranfears--------------------------\
+    //------------------------------------------------------------------\
+    Route::resource('transfears', 'TranfearsController');
+    Route::post('transfears/delete/by_selection', 'TranfearsController@delete_by_selection');
+
+    
     
     //------------------------------- Inventores--------------------------\
     //------------------------------------------------------------------\

@@ -58,7 +58,13 @@
           
            
 
-           
+          <li
+            class="nav-item" >
+            <router-link tag="a" class to="/app/settings/Tranfears">
+              <i class="nav-icon i-Bookmark"></i>
+              <span class="item-name">{{ $t('Transfear') }}</span>
+            </router-link>
+          </li>
 
           
 

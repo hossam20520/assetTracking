@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\device;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Intervention\Image\Gd\Decoder;
 use App\Models\Item;
 use App\Models\Asset;
 use App\Models\Room;
+
+use App\Models\Transfear;
+use App\Models\Location;
+use App\Models\Build;
 use App\Models\Category;
 use App\Models\Inventorie;
 use App\Models\Session;
@@ -134,9 +138,19 @@ class AssetsController extends Controller
         $id = $request->id;
         // $type = $request->type;
         // $slider = Slider::where('deleted_at', '=', null)->where('device' ,$type )->get(['image']);
-        $items = Item::with('room')->where('deleted_at', '=', null)->where('uuid' ,   $id )->first();
+        $items = Item::with('room.floor.location')->where('deleted_at', '=', null)->where('uuid' ,   $id )->first();
+
+        // $locations = Location::where('deleted_at', '=', null)->get();
+        // $Build = Build::where('deleted_at', '=', null)->get();
+ 
+        $room = Room::where('deleted_at', '=', null)->where('build_id' ,$items->room->floor->id)->get();
+    
+
         return response()->json([
             'asset' =>   $items ,
+            // 'locations' => $locations,
+            // 'floors'=> $Build , 
+            'rooms' => $room ,
 
         ]);
  
@@ -162,6 +176,31 @@ class AssetsController extends Controller
     }
 
 
+
+    public function trans(Request $request){
+
+         $oldroom = $request['room_id'];
+         $item_id = $request['item_id'];
+    
+       $items = Item::with('room')->where('deleted_at', '=', null)->where('uuid' ,  $item_id )->first();
+        $Transfear = new Transfear;
+        $Transfear->item_id = $item_id;
+        $Transfear->old_room_id = $items->room_id;
+        // $Transfear->old_location_id = $request['old_location_id'];
+        // $Transfear->old_floor_id = $request['old_floor_id'];
+        // $Transfear->user_id = $request['user_id'];
+        // $Transfear->inventorie = $request['inventorie'];
+        // $Transfear->date = $request['date'];
+        $Transfear->save();
+  
+
+        return response()->json([
+            'transfear' =>    $Transfear,
+            ]); 
+
+    }
+
+
     public function update_items(Request $request){
 
 
@@ -177,15 +216,19 @@ class AssetsController extends Controller
 
 
         if(!$item){
+
+
             return response()->json([
-                'status' =>  "not_updated" ,
+                'status' =>  "not_found" ,
                 ]); 
         }
 
 
         $id = $item->id;
 
-         $haveItems  = Session::where('session_id' , $inventorie->id )->where('item_status' , 'pending')->first();
+         $haveItems  = Session::where('session_id' , $inventorie->id )->where('item_status' , 'pending')->where('item_id' , $item->id)->first();
+
+
         if( $haveItems){
 
 
@@ -198,9 +241,14 @@ class AssetsController extends Controller
                 'status' =>  "updated" ,
                 ]); 
 
+
+
         }else{
-     return response()->json([
-            'status' =>  "not_updated" ,
+
+         
+        
+         return response()->json([
+            'status' =>  "trans" ,
             ]); 
 
 
@@ -236,6 +284,67 @@ class AssetsController extends Controller
         }
     }
 
+
+    public function updateRoom(Request $request){
+
+        $room_id = $request['new_room_id'];
+        $item_id = $request['item_id'];
+        $uuid = $request['uuid'];
+ 
+
+      if($uuid == "yes"){
+
+        $room =  Room::where('uuid' , $room_id)->first();
+        $room_id  = $room->id;
+      }
+
+
+  
+
+
+
+
+        $asset  = Item::with('room')->where('id' ,$item_id )->first();
+        $asset_uuid =  $asset->uuid;
+     
+        if(!$asset){
+            return response()->json([
+                'status' =>  "not_updated" ,
+                ]); 
+        }
+
+
+        $user = Auth::user();
+        $Transfear = new Transfear;
+
+        $Transfear->item_id = $item_id ;
+        $Transfear->old_room_id = $asset->room->id;
+        $Transfear->user_id = $user->id;
+        // $Transfear->ar_name = $request['ar_name'];
+        // $Transfear->image = $filename;
+        $Transfear->save();
+        // 'item_id', 'old_room_id',  
+        // 'old_location_id', 
+        // 'old_floor_id', 
+        // 'user_id', 
+        // 'inventorie', 
+        // 'date', 
+
+       Item::whereId( $item_id )->update([
+
+            'room_id' => $room_id ,
+ 
+         ]);
+
+        //  return response()->json(['status' => "success" ,  'message'=>  "ddd"  ], 200);
+
+         return response()->json([
+            'status' =>  "updated" ,
+            ]); 
+
+
+
+    }
 
     public function  updateImage(Request $request){
         $helpers = new helpers();
@@ -293,7 +402,7 @@ class AssetsController extends Controller
         $room_id = $request['room_id'];
         $user_id = Auth::user();
         $Inventore_id = 0;
-
+        // $inventorie =  Inventorie::where('deleted_at', '=' , null)->where('session_status' , 'open')->first();
         if($status == "open"){
 
              $inventorie =  Inventorie::where('deleted_at', '=' , null)->where('session_status' , 'open')->first();
@@ -367,10 +476,16 @@ class AssetsController extends Controller
  
         $session_items =  Session::with('item')->where('deleted_at', '=' , null)->where('session_id' , $Inventore_id)->get();
 
+   
 
+    //    $room_idd = $inventorie->room_id;
+
+
+         
         return response()->json([
            'assets' =>  $session_items ,
-           ]);
+     
+              ]);
         // Inventore::where('deleted_at', '=' , null)->
 
         // Session::

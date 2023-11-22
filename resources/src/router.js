@@ -566,7 +566,13 @@ const routes = [
                         component: () =>
                             import(/* webpackChunkName: "Brands" */"./views/app/pages/settings/brands")
                     },
-
+                          // transfears
+                        {
+                        name: "transfears",
+                        path: "Tranfears",
+                        component: () =>
+                            import(/* webpackChunkName: "Tranfears" */"./views/app/pages/settings/transfears")
+                    },
 
                     // brands
                     {
