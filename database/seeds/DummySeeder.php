@@ -1,7 +1,8 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class DummySeeder extends Seeder
 {
@@ -12,7 +13,6 @@ class DummySeeder extends Seeder
      */
     public function run()
     {
-       // Insert some stuff
         DB::table('dummys')->insert(
 
             
@@ -1016,5 +1016,7 @@ class DummySeeder extends Seeder
             array('id' => '998','room_name' => 'مكتب  مدير إدارة التخطيط ','item_name' => 'IP Phone Avaya J169','room_number' => 'C18','floor' => 'السادس','status' => 'wait','created_at' => '0000-00-00 00:00:00.000000','updated_at' => '2024-01-19 23:33:20.000000','deleted_at' => NULL),
             array('id' => '999','room_name' => 'مكتب  مدير إدارة التخطيط ','item_name' => 'Monitor Samsung Curved 24"','room_number' => 'C18','floor' => 'السادس','status' => 'wait','created_at' => '0000-00-00 00:00:00.000000','updated_at' => '2024-01-19 23:33:20.000000','deleted_at' => NULL)
         );
+
+        
     }
 }
