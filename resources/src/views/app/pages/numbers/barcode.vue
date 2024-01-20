@@ -107,15 +107,7 @@
             <i class="i-Power-2"></i>
             {{$t('Reset')}}
           </button>
-          <button
-            @click="print_Bracode('print_barcode')"
-            value="Print"
-            type="submit"
-            class="btn btn-light btn-sm pull-right m-1"
-          >
-            <i class="i-Billing"></i>
-            {{$t('print')}}
-          </button>
+ 
         </b-col>
       
    
@@ -369,6 +361,7 @@ export default {
       a.print();
     },
    
+
     //-------------------------------------- Show Barcode -------------------------\\
     showBarcode() {
       this.Per_Page();

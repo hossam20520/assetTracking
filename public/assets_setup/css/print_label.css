@@ -135,21 +135,20 @@
 
 @media print{
 	.barcode_non_a4 , .barcodea4{
-		margin: 0;
+		margin: 20px;
 	}
 
 
 	.barcode_non_a4 , .barcode_non_a4 .barcode-item, .barcodea4 , .barcodea4 .barcode-item{
 		width: 100%;
 		border: none!important;
-		
 	}
-
-	p { page-break-after: always; }
+  
+	p { page-break-after: always;    }
 
 	.barcode-item{
 		width: 100%;
-		page-break-after: always; 
+		page-break-after: always;
 	}
 
 

@@ -759,7 +759,10 @@ var render = function () {
                         [
                           _c("barcode", {
                             staticClass: "barcode",
-                            staticStyle: { width: "100%" },
+                            staticStyle: {
+                              width: "100%",
+                              "padding-right": "20px",
+                            },
                             attrs: {
                               fontSize: "15",
                               format: _vm.barcodeType,

@@ -55,9 +55,9 @@ Route::group([
 Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
 
-
+    Route::get('dropdown/get', 'device\AssetsController@getDrop');
+    Route::get('dropdown/get/room', 'device\AssetsController@getRoom');
     
-
     
     Route::get('/v1/device/session', 'device\AssetsController@session');
 
@@ -211,7 +211,13 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
     //------------------------------------------------------------------\\
 
   
-   
+    //------------------------------- Dummys--------------------------\
+    //------------------------------------------------------------------\
+    Route::resource('dummys', 'DummysController');
+    Route::post('dummys/delete/by_selection', 'DummysController@delete_by_selection');
+    Route::post('dummys/insert/by_selection', 'DummysController@insert_by_selection');
+
+
 
     Route::resource('Products', 'ProductsController');
     Route::get('Products/export/Excel', 'ProductsController@export_Excel');

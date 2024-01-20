@@ -346,6 +346,34 @@ class AssetsController extends Controller
 
     }
 
+    
+
+    public function getRoom(Request $request){
+        $dropDown = $request->type;
+
+        $room = Room::where('build_id' , $dropDown)->where('deleted_at' , '=' , null)->get();
+
+        return response()->json([
+         'rooms' =>  $room ,
+         ]); 
+        
+
+}
+
+
+
+    public function getDrop(Request $request){
+               $dropDown = $request->type;
+
+             $floor = Build::where('location_id' , $dropDown)->where('deleted_at' , '=' , null)->get();
+
+               return response()->json([
+                'floors' =>  $floor ,
+                ]); 
+               
+
+    }
+
     public function  updateImage(Request $request){
         $helpers = new helpers();
        

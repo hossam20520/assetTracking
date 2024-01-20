@@ -18,6 +18,7 @@ class Locations extends Migration
 			$table->integer('id', true);
 			$table->string('ar_name', 192)->nullable();
             $table->integer('parent_id')->nullable();
+            $table->string('uuid', 192)->nullable();
             // $table->foreign('parent_id')->references('id')->on('locations')->onDelete('cascade');
 			$table->timestamps(6);
 			$table->softDeletes();

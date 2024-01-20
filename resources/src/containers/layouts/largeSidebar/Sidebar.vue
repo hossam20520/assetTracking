@@ -66,6 +66,8 @@
             </router-link>
           </li>
 
+
+
           
 
           <li
@@ -78,7 +80,6 @@
               <span class="nav-text">{{ $t("Location") }}</span>
             </router-link>
           </li>
-
 
 
 
@@ -256,6 +257,12 @@
  
  
 
+          <li class="nav-item" >
+            <router-link tag="a" class to="/app/settings/Dummys">
+              <i class="nav-icon i-Bookmark"></i>
+              <span class="item-name">{{   $t('Dummy') }}</span>
+            </router-link>
+          </li>
 
 <!-- 
           <li
@@ -321,10 +328,13 @@
 </template>
 
 <script>
-import Topnav from "./TopNav";
 import { isMobile } from "mobile-device-detect";
+import {
+    mapActions,
+    mapGetters,
+} from "vuex";
 
-import { mapGetters, mapActions } from "vuex";
+import Topnav from "./TopNav";
 
 export default {
   components: {

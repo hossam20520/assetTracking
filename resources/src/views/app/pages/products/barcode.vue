@@ -64,8 +64,7 @@
 
                   <div class="barcode-item" style="width: 100%;  text-align: center; "    v-for="(item, index) in items" :key="index" >
                       <!-- <span  class="barcode-name">{{index}}</span> -->
-                    <barcode
-                    style="width: 100%;"
+                    <barcode style="width: 100%; padding-right: 20px;"
                       class="barcode"
                       fontSize= "15"
                       :format="barcodeType"
@@ -77,9 +76,10 @@
                     ></barcode>
 
                     <span    >{{item.ar_name}}</span>
-
-
                     </div>
+
+
+
                 <!-- </div> -->
               </div>
             </b-col>

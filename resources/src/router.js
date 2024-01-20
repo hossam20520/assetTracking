@@ -1,11 +1,10 @@
 import Vue from "vue";
-import store from "./store";
-import Router from "vue-router";
-import { i18n } from "./plugins/i18n";
-import authenticate from "./auth/authenticate";
-import IsConnected from "./auth/IsConnected";
 
 import NProgress from "nprogress";
+import Router from "vue-router";
+
+import { i18n } from "./plugins/i18n";
+import store from "./store";
 
 Vue.use(Router);
 
@@ -676,6 +675,14 @@ const routes = [
                         path: "Backup",
                         component: () =>
                             import(/* webpackChunkName: "Backup" */"./views/app/pages/settings/backup")
+                    },
+
+                   // dummys
+                   {
+                        name: "dummys",
+                        path: "Dummys",
+                        component: () =>
+                            import(/* webpackChunkName: "Dummys" */"./views/app/pages/settings/dummys")
                     },
 
                     // Warehouses

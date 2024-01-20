@@ -18,7 +18,8 @@ class Rooms extends Migration
 			$table->integer('id', true);
 			$table->string('ar_name', 192)->nullable();
             $table->integer('build_id')->nullable()->index('build_id');
- 
+            $table->string('room_number', 300)->nullable();
+            $table->string('uuid', 192)->nullable();
 			$table->timestamps(6);
 			$table->softDeletes();
         });
