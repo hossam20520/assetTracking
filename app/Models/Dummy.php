@@ -7,9 +7,9 @@ class Dummy extends Model
 {
     protected $table = 'dummys';
     protected $dates = ['deleted_at'];
-
+ 
     protected $fillable = [
-        // 'ar_name', 'en_name', 
+        'room_name', 'item_name', 'room_number', 'floor', 'status', 'note', 
     ];
 
     protected $casts = [

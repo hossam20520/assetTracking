@@ -45,6 +45,17 @@
             <i class="i-Add"></i>
              {{ $t('Add') }}
           </b-button>
+
+
+          <b-button
+            @click="Show_import_Dummy()"
+            size="sm"
+            variant="info m-1">
+            <i class="i-Download"></i>
+            {{ $t("import_dummy") }}
+          </b-button>
+
+
         </div>
 
         <template slot="table-row" slot-scope="props">
@@ -237,7 +248,88 @@
       </b-modal>
 
 
+      <b-modal
+        ok-only
+        ok-title="Cancel"
+        size="md"
+        id="importDummy"
+        :title="$t('import_dummy')"
+      >
+        <b-form @submit.prevent="Submit_import" enctype="multipart/form-data">
+          <b-row>
+            <!-- File -->
+            <b-col md="12" sm="12" class="mb-3">
+              <b-form-group>
+                <input type="file" @change="onFileSelecteded" label="Choose File">
+                <b-form-invalid-feedback
+                  id="File-feedback"
+                  class="d-block"
+                >{{$t('field_must_be_in_csv_format')}}</b-form-invalid-feedback>
+              </b-form-group>
+            </b-col>
 
+             <b-col md="6" sm="12">
+            <b-button type="submit" variant="primary" :disabled="ImportProcessing" size="sm" block>{{ $t("submit") }}</b-button>
+              <div v-once class="typo__p" v-if="ImportProcessing">
+                <div class="spinner sm spinner-primary mt-3"></div>
+              </div>
+          </b-col>
+
+            <!-- <b-col md="6" sm="12">
+              <b-button
+                :href="'/import/exemples/import_products.csv'"
+                variant="info"
+                size="sm"
+                block
+              >{{ $t("Download_exemple") }}</b-button>
+            </b-col> -->
+
+            <b-col md="12" sm="12">
+              <table class="table table-bordered table-sm mt-4">
+                <tbody>
+                  <tr>
+                    <td>{{$t('room_name')}}</td>
+                    <th>
+                      <span class="badge badge-outline-success">{{$t('Field_is_required')}}</span>
+                    </th>
+                  </tr>
+
+                   <tr>
+                    <td>{{$t('item_name')}}</td>
+                    <th>
+                      <span class="badge badge-outline-success">{{$t('Field_is_required')}}</span>
+                      {{$t('item_name')}}
+                    </th>
+                  </tr>
+
+                  <tr>
+                    <td>{{$t('room_number')}}</td>
+                    <th>
+                      <span class="badge badge-outline-success">{{$t('Field_is_required')}}</span>
+                    </th>
+                  </tr>
+
+                  <tr>
+                    <td>{{$t('floor')}}</td>
+                    <th>
+                      <span class="badge badge-outline-success">{{$t('Field_is_required')}}</span>
+                    </th>
+                  </tr>
+
+                  <tr>
+                    <td>{{$t('status')}}</td>
+                    <th>
+                      <span class="badge badge-outline-success">{{$t('Field_is_required')}}</span>
+                    </th>
+                  </tr>
+
+             
+                </tbody>
+              </table>
+            </b-col>
+          </b-row>
+        </b-form>
+      </b-modal>
 
 
   </div>
@@ -273,6 +365,7 @@ export default {
       floors:[],
       limit: "10",
       locations:[],
+      import_products: "",
       category:[],
       dummy: {
         id: "",
@@ -399,6 +492,70 @@ export default {
       
       this.getLocations(selectedValue);
 
+    },
+
+
+    onFileSelecteded(e) {
+      this.import_products = "";
+      let file = e.target.files[0];
+      let errorFilesize;
+
+      if (file["size"] < 1048576) {
+        // 1 mega = 1,048,576 Bytes
+        errorFilesize = false;
+      } else {
+        this.makeToast(
+          "danger",
+          this.$t("file_size_must_be_less_than_1_mega"),
+          this.$t("Failed")
+        );
+      }
+
+      if (errorFilesize === false) {
+        this.import_products = file;
+      }
+    },
+
+
+
+    Submit_import() {
+      // Start the progress bar.
+      NProgress.start();
+      NProgress.set(0.1);
+      var self = this;
+      self.ImportProcessing = true;
+      self.data.append("dummys", self.import_products);
+      axios
+        .post("dummys/import/csv", self.data)
+        .then(response => {
+          self.ImportProcessing = false;
+          if (response.data.status === true) {
+            this.makeToast(
+              "success",
+              this.$t("Successfully_Imported"),
+              this.$t("Success")
+            );
+            Fire.$emit("Event_import");
+          } else if (response.data.status === false) {
+            this.makeToast(
+              "danger",
+              this.$t("field_must_be_in_csv_format"),
+              this.$t("Failed")
+            );
+          }
+          // Complete the animation of theprogress bar.
+          NProgress.done();
+        })
+        .catch(error => {
+          self.ImportProcessing = false;
+          // Complete the animation of theprogress bar.
+          NProgress.done();
+          this.makeToast(
+            "danger",
+            this.$t("Please_follow_the_import_instructions"),
+            this.$t("Failed")
+          );
+        });
     },
 
 
@@ -634,6 +791,9 @@ export default {
       });
     },
 
+    Show_import_Dummy() {
+      this.$bvModal.show("importDummy");
+    },
 
 
     Insert_by_selected(){
@@ -756,6 +916,16 @@ export default {
         this.Get_Dummys(this.serverParams.page);
       }, 500);
     });
+
+
+    // Fire.$on("Event_import", () => {
+    //   setTimeout(() => {
+    //     this.Get_Products(this.serverParams.page);
+    //     this.$bvModal.hide("importProducts");
+    //   }, 500);
+    // });
+
+
   }
 };
 </script>

@@ -212,6 +212,76 @@ class DummysController extends Controller
 
 
 
+
+        // import Products
+        public function import_dummy(Request $request)
+        {
+            try {
+                \DB::transaction(function () use ($request) {
+                    $file_upload = $request->file('dummys');
+                    $ext = pathinfo($file_upload->getClientOriginalName(), PATHINFO_EXTENSION);
+                    if ($ext != 'csv') {
+                        return response()->json([
+                            'msg' => 'must be in csv format',
+                            'status' => false,
+                        ]);
+                    } else {
+                        $data = array();
+                        $rowcount = 0;
+                        if (($handle = fopen($file_upload, "r")) !== false) {
+    
+                            $max_line_length = defined('MAX_LINE_LENGTH') ? MAX_LINE_LENGTH : 10000;
+                            $header = fgetcsv($handle, $max_line_length);
+                            $header_colcount = count($header);
+                            while (($row = fgetcsv($handle, $max_line_length)) !== false) {
+                                $row_colcount = count($row);
+                                if ($row_colcount == $header_colcount) {
+                                    $entry = array_combine($header, $row);
+                                    $data[] = $entry;
+                                } else {
+                                    return null;
+                                }
+                                $rowcount++;
+                            }
+                            fclose($handle);
+                        } else {
+                            return null;
+                        }
+     
+                        //-- Create New Product
+                        foreach ($data as $key => $value) {
+                   
+                            $Product = new Dummy;
+                            $Product->room_name = $value['room_name'] == '' ? null : $value['room_name'];
+                            $Product->item_name =  $value['item_name'] == '' ? null : $value['item_name'];
+                            $Product->room_number = $value['room_number'] == '' ? null : $value['room_number'];
+                            $Product->floor = $value['floor'] == '' ? null : $value['floor'];
+                            $Product->status = $value['status'] == '' ? null : $value['status'];
+                            $Product->note = $value['note'] == '' ? null : $value['note'];
+                            $Product->save();
+    
+                         
+                        }
+                     
+                    }
+                }, 10);
+                return response()->json([
+                    'status' => true,
+                ], 200);
+    
+            } catch (ValidationException $e) {
+                return response()->json([
+                    'status' => false,
+                    'msg' => 'error',
+                    'errors' => $e->errors(),
+                ]);
+            }
+    
+        }
+
+
+
+
     public function generateUUID(){
         // $room = Room::where('room_id' , $id)->first();
         $items = Item::max('uuid');

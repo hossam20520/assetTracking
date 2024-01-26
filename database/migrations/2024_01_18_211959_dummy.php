@@ -23,6 +23,9 @@ class Dummy extends Migration
             $table->text('room_number')->nullable();
             $table->text('floor')->nullable();
             $table->text('status')->nullable();
+            $table->text('note')->nullable();
+
+            
             $table->timestamps(6);
             $table->softDeletes();
         });

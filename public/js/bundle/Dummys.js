@@ -264,6 +264,98 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   metaInfo: {
@@ -292,6 +384,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       floors: [],
       limit: "10",
       locations: [],
+      import_products: "",
       category: [],
       dummy: {
         id: "",
@@ -410,24 +503,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     handleChange: function handleChange(selectedValue) {
       this.getLocations(selectedValue);
     },
-    getRooms: function getRooms(selectedValue) {
+    onFileSelecteded: function onFileSelecteded(e) {
+      this.import_products = "";
+      var file = e.target.files[0];
+      var errorFilesize;
+
+      if (file["size"] < 1048576) {
+        // 1 mega = 1,048,576 Bytes
+        errorFilesize = false;
+      } else {
+        this.makeToast("danger", this.$t("file_size_must_be_less_than_1_mega"), this.$t("Failed"));
+      }
+
+      if (errorFilesize === false) {
+        this.import_products = file;
+      }
+    },
+    Submit_import: function Submit_import() {
       var _this2 = this;
 
-      axios.get("dropdown/get/room?type=" + selectedValue).then(function (response) {
-        _this2.rooms = response.data.rooms;
-      })["catch"](function (response) {
-        // Complete the animation of theprogress bar.
+      // Start the progress bar.
+      nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.start();
+      nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.set(0.1);
+      var self = this;
+      self.ImportProcessing = true;
+      self.data.append("dummys", self.import_products);
+      axios.post("dummys/import/csv", self.data).then(function (response) {
+        self.ImportProcessing = false;
+
+        if (response.data.status === true) {
+          _this2.makeToast("success", _this2.$t("Successfully_Imported"), _this2.$t("Success"));
+
+          Fire.$emit("Event_import");
+        } else if (response.data.status === false) {
+          _this2.makeToast("danger", _this2.$t("field_must_be_in_csv_format"), _this2.$t("Failed"));
+        } // Complete the animation of theprogress bar.
+
+
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
-        setTimeout(function () {
-          _this2.isLoading = false;
-        }, 500);
+      })["catch"](function (error) {
+        self.ImportProcessing = false; // Complete the animation of theprogress bar.
+
+        nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
+
+        _this2.makeToast("danger", _this2.$t("Please_follow_the_import_instructions"), _this2.$t("Failed"));
       });
     },
-    getLocations: function getLocations(selectedValue) {
+    getRooms: function getRooms(selectedValue) {
       var _this3 = this;
 
-      axios.get("dropdown/get?type=" + selectedValue).then(function (response) {
-        _this3.floors = response.data.floors;
+      axios.get("dropdown/get/room?type=" + selectedValue).then(function (response) {
+        _this3.rooms = response.data.rooms;
       })["catch"](function (response) {
         // Complete the animation of theprogress bar.
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
@@ -436,18 +562,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, 500);
       });
     },
+    getLocations: function getLocations(selectedValue) {
+      var _this4 = this;
+
+      axios.get("dropdown/get?type=" + selectedValue).then(function (response) {
+        _this4.floors = response.data.floors;
+      })["catch"](function (response) {
+        // Complete the animation of theprogress bar.
+        nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
+        setTimeout(function () {
+          _this4.isLoading = false;
+        }, 500);
+      });
+    },
     //------------- Submit Validation Create & Edit Dummy
     Submit_Dummy: function Submit_Dummy() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.$refs.Create_dummy.validate().then(function (success) {
         if (!success) {
-          _this4.makeToast("danger", _this4.$t("Please_fill_the_form_correctly"), _this4.$t("Failed"));
+          _this5.makeToast("danger", _this5.$t("Please_fill_the_form_correctly"), _this5.$t("Failed"));
         } else {
-          if (!_this4.editmode) {
-            _this4.Create_Dummy();
+          if (!_this5.editmode) {
+            _this5.Create_Dummy();
           } else {
-            _this4.Update_Dummy();
+            _this5.Update_Dummy();
           }
         }
       });
@@ -462,26 +601,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //------------------------------ Event Upload Image -------------------------------\
     onFileSelected: function onFileSelected(e) {
-      var _this5 = this;
+      var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var _yield$_this5$$refs$I, valid;
+        var _yield$_this6$$refs$I, valid;
 
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this5.$refs.Image.validate(e);
+                return _this6.$refs.Image.validate(e);
 
               case 2:
-                _yield$_this5$$refs$I = _context.sent;
-                valid = _yield$_this5$$refs$I.valid;
+                _yield$_this6$$refs$I = _context.sent;
+                valid = _yield$_this6$$refs$I.valid;
 
                 if (valid) {
-                  _this5.dummy.image = e.target.files[0];
+                  _this6.dummy.image = e.target.files[0];
                 } else {
-                  _this5.dummy.image = "";
+                  _this6.dummy.image = "";
                 }
 
               case 5:
@@ -513,32 +652,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //---------------------------------------- Get All dummys-----------------\
     Get_Dummys: function Get_Dummys(page) {
-      var _this6 = this;
+      var _this7 = this;
 
       // Start the progress bar.
       nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.start();
       nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.set(0.1);
       axios.get("dummys?page=" + page + "&SortField=" + this.serverParams.sort.field + "&SortType=" + this.serverParams.sort.type + "&search=" + this.search + "&limit=" + this.limit).then(function (response) {
-        _this6.dummys = response.data.dummys;
-        _this6.totalRows = response.data.totalRows;
-        _this6.locations = response.data.locations;
-        _this6.category = response.data.category; // this.rooms = response.data.rooms;
+        _this7.dummys = response.data.dummys;
+        _this7.totalRows = response.data.totalRows;
+        _this7.locations = response.data.locations;
+        _this7.category = response.data.category; // this.rooms = response.data.rooms;
         // console.log(response.data.rooms)
         // Complete the animation of theprogress bar.
 
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
-        _this6.isLoading = false;
+        _this7.isLoading = false;
       })["catch"](function (response) {
         // Complete the animation of theprogress bar.
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
         setTimeout(function () {
-          _this6.isLoading = false;
+          _this7.isLoading = false;
         }, 500);
       });
     },
     //---------------------------------------- Create new dummy-----------------\
     Create_Dummy: function Create_Dummy() {
-      var _this7 = this;
+      var _this8 = this;
 
       var self = this;
       self.SubmitProcessing = true;
@@ -549,16 +688,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         self.SubmitProcessing = false;
         Fire.$emit("Event_Dummy");
 
-        _this7.makeToast("success", _this7.$t("Create.TitleDummy"), _this7.$t("Success"));
+        _this8.makeToast("success", _this8.$t("Create.TitleDummy"), _this8.$t("Success"));
       })["catch"](function (error) {
         self.SubmitProcessing = false;
 
-        _this7.makeToast("danger", _this7.$t("InvalidData"), _this7.$t("Failed"));
+        _this8.makeToast("danger", _this8.$t("InvalidData"), _this8.$t("Failed"));
       });
     },
     //---------------------------------------- Update Dummy-----------------\
     Update_Dummy: function Update_Dummy() {
-      var _this8 = this;
+      var _this9 = this;
 
       var self = this;
       self.SubmitProcessing = true;
@@ -570,11 +709,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         self.SubmitProcessing = false;
         Fire.$emit("Event_Dummy");
 
-        _this8.makeToast("success", _this8.$t("Update.TitleDummy"), _this8.$t("Success"));
+        _this9.makeToast("success", _this9.$t("Update.TitleDummy"), _this9.$t("Success"));
       })["catch"](function (error) {
         self.SubmitProcessing = false;
 
-        _this8.makeToast("danger", _this8.$t("InvalidData"), _this8.$t("Failed"));
+        _this9.makeToast("danger", _this9.$t("InvalidData"), _this9.$t("Failed"));
       });
     },
     //---------------------------------------- Reset Form -----------------\
@@ -589,7 +728,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //---------------------------------------- Delete Dummy -----------------\
     Delete_Dummy: function Delete_Dummy(id) {
-      var _this9 = this;
+      var _this10 = this;
 
       this.$swal({
         title: this.$t("Delete.Title"),
@@ -603,20 +742,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("dummys/" + id).then(function () {
-            _this9.$swal(_this9.$t("Delete.Deleted"), _this9.$t("Delete.TitleDummy"), "success");
+            _this10.$swal(_this10.$t("Delete.Deleted"), _this10.$t("Delete.TitleDummy"), "success");
 
             Fire.$emit("Delete_Dummy");
           })["catch"](function () {
-            _this9.$swal(_this9.$t("Delete.Failed"), _this9.$t("Delete.Therewassomethingwronge"), "warning");
+            _this10.$swal(_this10.$t("Delete.Failed"), _this10.$t("Delete.Therewassomethingwronge"), "warning");
           });
         }
       });
+    },
+    Show_import_Dummy: function Show_import_Dummy() {
+      this.$bvModal.show("importDummy");
     },
     Insert_by_selected: function Insert_by_selected() {
       this.$bvModal.show("New_dummy");
     },
     add_data_by_selected: function add_data_by_selected() {
-      var _this10 = this;
+      var _this11 = this;
 
       this.$swal({
         title: this.$t("InsertData"),
@@ -633,16 +775,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.start();
           nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.set(0.1);
           axios.post("dummys/insert/by_selection", {
-            selectedIds: _this10.selectedIds,
-            room_id: _this10.dummy.room_id,
-            location_id: _this10.dummy.location_id,
-            floor_id: _this10.dummy.floor_id,
-            major_id: _this10.dummy.major_id,
-            minor_id: _this10.dummy.minor_id,
-            detaild_id: _this10.dummy.detaild_id,
-            room_number: _this10.dummy.room_number
+            selectedIds: _this11.selectedIds,
+            room_id: _this11.dummy.room_id,
+            location_id: _this11.dummy.location_id,
+            floor_id: _this11.dummy.floor_id,
+            major_id: _this11.dummy.major_id,
+            minor_id: _this11.dummy.minor_id,
+            detaild_id: _this11.dummy.detaild_id,
+            room_number: _this11.dummy.room_number
           }).then(function () {
-            _this10.$swal(_this10.$t("Success"), _this10.$t("Success"), "success");
+            _this11.$swal(_this11.$t("Success"), _this11.$t("Success"), "success");
 
             Fire.$emit("Delete_Dummy");
           })["catch"](function () {
@@ -651,14 +793,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
             }, 500);
 
-            _this10.$swal(_this10.$t("Delete.Failed"), _this10.$t("Delete.Therewassomethingwronge"), "warning");
+            _this11.$swal(_this11.$t("Delete.Failed"), _this11.$t("Delete.Therewassomethingwronge"), "warning");
           });
         }
       });
     },
     //---- Delete dummys by selection
     delete_by_selected: function delete_by_selected() {
-      var _this11 = this;
+      var _this12 = this;
 
       this.$swal({
         title: this.$t("Delete.Title"),
@@ -675,9 +817,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.start();
           nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.set(0.1);
           axios.post("dummys/delete/by_selection", {
-            selectedIds: _this11.selectedIds
+            selectedIds: _this12.selectedIds
           }).then(function () {
-            _this11.$swal(_this11.$t("Delete.Deleted"), _this11.$t("Delete.TitleDummy"), "success");
+            _this12.$swal(_this12.$t("Delete.Deleted"), _this12.$t("Delete.TitleDummy"), "success");
 
             Fire.$emit("Delete_Dummy");
           })["catch"](function () {
@@ -686,7 +828,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
             }, 500);
 
-            _this11.$swal(_this11.$t("Delete.Failed"), _this11.$t("Delete.Therewassomethingwronge"), "warning");
+            _this12.$swal(_this12.$t("Delete.Failed"), _this12.$t("Delete.Therewassomethingwronge"), "warning");
           });
         }
       });
@@ -694,21 +836,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   //end Methods
   created: function created() {
-    var _this12 = this;
+    var _this13 = this;
 
     this.Get_Dummys(1);
     Fire.$on("Event_Dummy", function () {
       setTimeout(function () {
-        _this12.Get_Dummys(_this12.serverParams.page);
+        _this13.Get_Dummys(_this13.serverParams.page);
 
-        _this12.$bvModal.hide("New_dummy");
+        _this13.$bvModal.hide("New_dummy");
       }, 500);
     });
     Fire.$on("Delete_Dummy", function () {
       setTimeout(function () {
-        _this12.Get_Dummys(_this12.serverParams.page);
+        _this13.Get_Dummys(_this13.serverParams.page);
       }, 500);
-    });
+    }); // Fire.$on("Event_import", () => {
+    //   setTimeout(() => {
+    //     this.Get_Products(this.serverParams.page);
+    //     this.$bvModal.hide("importProducts");
+    //   }, 500);
+    // });
   }
 });
 
@@ -912,6 +1059,26 @@ var render = function () {
                           _vm._v(
                             "\n           " +
                               _vm._s(_vm.$t("Add")) +
+                              "\n        "
+                          ),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        {
+                          attrs: { size: "sm", variant: "info m-1" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.Show_import_Dummy()
+                            },
+                          },
+                        },
+                        [
+                          _c("i", { staticClass: "i-Download" }),
+                          _vm._v(
+                            "\n          " +
+                              _vm._s(_vm.$t("import_dummy")) +
                               "\n        "
                           ),
                         ]
@@ -1476,11 +1643,184 @@ var render = function () {
         ],
         1
       ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "ok-only": "",
+            "ok-title": "Cancel",
+            size: "md",
+            id: "importDummy",
+            title: _vm.$t("import_dummy"),
+          },
+        },
+        [
+          _c(
+            "b-form",
+            {
+              attrs: { enctype: "multipart/form-data" },
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.Submit_import($event)
+                },
+              },
+            },
+            [
+              _c(
+                "b-row",
+                [
+                  _c(
+                    "b-col",
+                    { staticClass: "mb-3", attrs: { md: "12", sm: "12" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        [
+                          _c("input", {
+                            attrs: { type: "file", label: "Choose File" },
+                            on: { change: _vm.onFileSelecteded },
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-invalid-feedback",
+                            {
+                              staticClass: "d-block",
+                              attrs: { id: "File-feedback" },
+                            },
+                            [
+                              _vm._v(
+                                _vm._s(_vm.$t("field_must_be_in_csv_format"))
+                              ),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { md: "6", sm: "12" } },
+                    [
+                      _c(
+                        "b-button",
+                        {
+                          attrs: {
+                            type: "submit",
+                            variant: "primary",
+                            disabled: _vm.ImportProcessing,
+                            size: "sm",
+                            block: "",
+                          },
+                        },
+                        [_vm._v(_vm._s(_vm.$t("submit")))]
+                      ),
+                      _vm._v(" "),
+                      _vm.ImportProcessing ? _vm._m(2) : _vm._e(),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "12", sm: "12" } }, [
+                    _c(
+                      "table",
+                      { staticClass: "table table-bordered table-sm mt-4" },
+                      [
+                        _c("tbody", [
+                          _c("tr", [
+                            _c("td", [_vm._v(_vm._s(_vm.$t("room_name")))]),
+                            _vm._v(" "),
+                            _c("th", [
+                              _c(
+                                "span",
+                                { staticClass: "badge badge-outline-success" },
+                                [_vm._v(_vm._s(_vm.$t("Field_is_required")))]
+                              ),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v(_vm._s(_vm.$t("item_name")))]),
+                            _vm._v(" "),
+                            _c("th", [
+                              _c(
+                                "span",
+                                { staticClass: "badge badge-outline-success" },
+                                [_vm._v(_vm._s(_vm.$t("Field_is_required")))]
+                              ),
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(_vm.$t("item_name")) +
+                                  "\n                  "
+                              ),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v(_vm._s(_vm.$t("room_number")))]),
+                            _vm._v(" "),
+                            _c("th", [
+                              _c(
+                                "span",
+                                { staticClass: "badge badge-outline-success" },
+                                [_vm._v(_vm._s(_vm.$t("Field_is_required")))]
+                              ),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v(_vm._s(_vm.$t("floor")))]),
+                            _vm._v(" "),
+                            _c("th", [
+                              _c(
+                                "span",
+                                { staticClass: "badge badge-outline-success" },
+                                [_vm._v(_vm._s(_vm.$t("Field_is_required")))]
+                              ),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("tr", [
+                            _c("td", [_vm._v(_vm._s(_vm.$t("status")))]),
+                            _vm._v(" "),
+                            _c("th", [
+                              _c(
+                                "span",
+                                { staticClass: "badge badge-outline-success" },
+                                [_vm._v(_vm._s(_vm.$t("Field_is_required")))]
+                              ),
+                            ]),
+                          ]),
+                        ]),
+                      ]
+                    ),
+                  ]),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
     ],
     1
   )
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "typo__p" }, [
+      _c("div", { staticClass: "spinner sm spinner-primary mt-3" }),
+    ])
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
