@@ -31,8 +31,8 @@ class DummysController extends Controller
 
         $dummys = Dummy::where('deleted_at', '=', null)->where(function ($query) use ($request) {
                 return $query->when($request->filled('search'), function ($query) use ($request) {
-                    return $query->where('ar_name', 'LIKE', "%{$request->search}%")
-                        ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+                    return $query->where('room_number', 'LIKE', "%{$request->search}%");
+                       
                 });
             });
         $totalRows = $dummys->count();
