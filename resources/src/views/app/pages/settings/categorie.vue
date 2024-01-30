@@ -177,7 +177,7 @@ export default {
           tdClass: "text-left",
           thClass: "text-left"
         },
-        
+
         {
           label: this.$t("Action"),
           field: "actions",
