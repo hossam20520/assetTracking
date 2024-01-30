@@ -177,6 +177,7 @@ export default {
           tdClass: "text-left",
           thClass: "text-left"
         },
+        
         {
           label: this.$t("Action"),
           field: "actions",
@@ -188,6 +189,9 @@ export default {
       ];
     }
   },
+
+
+
 
   methods: {
     //---- update Params Table
@@ -330,7 +334,7 @@ export default {
       axios
         .post("categories", {
           name: this.category.name,
-          code: this.category.code
+          uuid: this.category.uuid
         })
         .then(response => {
           this.SubmitProcessing = false;
@@ -353,7 +357,7 @@ export default {
       axios
         .put("categories/" + this.category.id, {
           name: this.category.name,
-          code: this.category.code
+          uuid: this.category.uuid
         })
         .then(response => {
           this.SubmitProcessing = false;
@@ -376,7 +380,7 @@ export default {
       this.category = {
         id: "",
         name: "",
-        code: ""
+        uuid: ""
       };
     },
 

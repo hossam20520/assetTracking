@@ -321,7 +321,7 @@ __webpack_require__.r(__webpack_exports__);
       this.SubmitProcessing = true;
       axios.post("categories", {
         name: this.category.name,
-        code: this.category.code
+        uuid: this.category.uuid
       }).then(function (response) {
         _this4.SubmitProcessing = false;
         Fire.$emit("Event_Category");
@@ -340,7 +340,7 @@ __webpack_require__.r(__webpack_exports__);
       this.SubmitProcessing = true;
       axios.put("categories/" + this.category.id, {
         name: this.category.name,
-        code: this.category.code
+        uuid: this.category.uuid
       }).then(function (response) {
         _this5.SubmitProcessing = false;
         Fire.$emit("Event_Category");
@@ -357,7 +357,7 @@ __webpack_require__.r(__webpack_exports__);
       this.category = {
         id: "",
         name: "",
-        code: ""
+        uuid: ""
       };
     },
     //--------------------------- Remove Category----------------\\
