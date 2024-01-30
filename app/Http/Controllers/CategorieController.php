@@ -82,13 +82,11 @@ class CategorieController extends BaseController
 
     //-------------- Update Category ---------------\\
 
+    
     public function update(Request $request, $id)
     {
         $this->authorizeForUser($request->user('api'), 'update', Category::class);
-
-   
-
-
+ 
         Category::whereId($id)->update([
             'uuid' => $request['uuid'],
             'name' => $request['name'],
