@@ -86,10 +86,8 @@ class CategorieController extends BaseController
     {
         $this->authorizeForUser($request->user('api'), 'update', Category::class);
 
-        request()->validate([
-            'name' => 'required',
-          
-        ]);
+   
+
 
         Category::whereId($id)->update([
             'uuid' => $request['uuid'],
