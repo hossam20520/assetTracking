@@ -55,18 +55,12 @@ class CategorieController extends BaseController
         // $category = Category::where('deleted_at' , '=' , null)->orderBy('id', 'desc')
         // ->first();
         $category = Category::max('uuid');
-        request()->validate([
-            'name' => 'required' 
-          
-        ]);
-
-
-
-       
+     
+ 
        
          $uuid = $request['uuid'];
         if( $uuid ==  ""){
-            $uuid =  intval( $category) + 1;  ; 
+            $uuid =  intval( $category) + 1;  
         }else{
             $uuid  = $request['uuid'];
         }
@@ -94,7 +88,7 @@ class CategorieController extends BaseController
 
         request()->validate([
             'name' => 'required',
-            'code' => 'required',
+          
         ]);
 
         Category::whereId($id)->update([
