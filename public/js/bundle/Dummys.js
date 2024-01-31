@@ -421,6 +421,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         tdClass: "text-left",
         thClass: "text-left"
       }, {
+        label: this.$t("major_category"),
+        field: "major_category",
+        tdClass: "text-left",
+        thClass: "text-left"
+      }, {
+        label: this.$t("minor_category"),
+        field: "minor_category",
+        tdClass: "text-left",
+        thClass: "text-left"
+      }, {
+        label: this.$t("detailed_categories"),
+        field: "detailed_categories",
+        tdClass: "text-left",
+        thClass: "text-left"
+      }, {
         label: this.$t("status"),
         field: "status",
         tdClass: "text-left",
