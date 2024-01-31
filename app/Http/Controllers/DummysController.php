@@ -170,7 +170,19 @@ class DummysController extends Controller
 
     //-------------- Delete by selection  ---------------\
     
+  public function getByCategoryData($name){
+    $category = Category::where('name' , $name)->first();
 
+    if($category){
+        return $category->id;
+    }else {
+
+        $category = Category::where('name' , 'default')->first();
+        return $category->id;
+
+    }
+
+  }
 
     public function insert_by_selection(Request $request)
     {
@@ -182,17 +194,22 @@ class DummysController extends Controller
         $minor_id = $request->minor_id;
         $detaild_id = $request->detaild_id;
         
+        $major_category = $request->major_category;
+
+        $minor_category = $request->minor_category;
+        $detailed_categories = $request->detailed_categories;
+
         $selectedIds = $request->selectedIds;
         foreach ($selectedIds as $dummy_id) {
             $dummy = Dummy::where('id' ,$dummy_id )->first();
- 
+            
             $item = new Item;
-            $item->ar_name = $dummy->item_name;
+            $item->ar_name =   $dummy->item_name;
             $item->room_id = $room_id;
             $item->room_number = $room_number;
-            $item->major_id = $major_id;
-            $item->minor_id = $minor_id;
-            $item->detaild_id = $detaild_id;
+            $item->major_id = $this->getByCategoryData( $dummy->major_category);
+            $item->minor_id = $this->getByCategoryData($dummy->minor_category);
+            $item->detaild_id =  $this->getByCategoryData($dummy->detailed_categories);
             $item->uuid = $this->generateUUID();
             $item->save();
       

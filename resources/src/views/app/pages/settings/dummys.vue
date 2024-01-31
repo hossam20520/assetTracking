@@ -376,6 +376,11 @@ export default {
         minor_id:0,
         detaild_id:0,
         room_number:"",
+        major_category:"",
+        minor_category:"",
+        detailed_categories:"",
+
+
       }
     };
   },
@@ -560,11 +565,11 @@ export default {
             );
             Fire.$emit("Event_import");
           } else if (response.data.status === false) {
-            this.makeToast(
-              "danger",
-              this.$t("field_must_be_in_csv_format"),
-              this.$t("Failed")
-            );
+            // this.makeToast(
+            //   "danger",
+            //   this.$t("field_must_be_in_csv_format"),
+            //   this.$t("Failed")
+            // );
           }
           // Complete the animation of theprogress bar.
           NProgress.done();
@@ -573,11 +578,11 @@ export default {
           self.ImportProcessing = false;
           // Complete the animation of theprogress bar.
           NProgress.done();
-          this.makeToast(
-            "danger",
-            this.$t("Please_follow_the_import_instructions"),
-            this.$t("Failed")
-          );
+          // this.makeToast(
+          //   "danger",
+          //   this.$t("Please_follow_the_import_instructions"),
+          //   this.$t("Failed")
+          // );
         });
     },
 
@@ -737,7 +742,7 @@ export default {
         })
         .catch(error => {
            self.SubmitProcessing = false;
-          this.makeToast("danger", this.$t("InvalidData"), this.$t("Failed"));
+          // this.makeToast("danger", this.$t("InvalidData"), this.$t("Failed"));
         });
     },
 
@@ -764,7 +769,7 @@ export default {
         })
         .catch(error => {
            self.SubmitProcessing = false;
-          this.makeToast("danger", this.$t("InvalidData"), this.$t("Failed"));
+          // this.makeToast("danger", this.$t("InvalidData"), this.$t("Failed"));
         });
     },
 
@@ -841,7 +846,7 @@ export default {
           NProgress.start();
           NProgress.set(0.1);
           axios.post("dummys/insert/by_selection", {
-              selectedIds: this.selectedIds ,
+        selectedIds: this.selectedIds ,
 
         room_id:this.dummy.room_id,
         location_id:this.dummy.location_id,
@@ -850,6 +855,9 @@ export default {
         minor_id:this.dummy.minor_id,
         detaild_id:this.dummy.detaild_id,
         room_number:this.dummy.room_number,
+        major_category:this.dummy.major_category,
+        minor_category:this.dummy.minor_category,
+        detailed_categories:this.dummy.detailed_categories,
               
             })
             .then(() => {
@@ -864,11 +872,11 @@ export default {
             .catch(() => {
               // Complete the animation of theprogress bar.
               setTimeout(() => NProgress.done(), 500);
-              this.$swal(
-                this.$t("Delete.Failed"),
-                this.$t("Delete.Therewassomethingwronge"),
-                "warning"
-              );
+              // this.$swal(
+              //   this.$t("Delete.Failed"),
+              //   this.$t("Delete.Therewassomethingwronge"),
+              //   "warning"
+              // );
             });
         }
 

@@ -394,7 +394,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         major_id: 0,
         minor_id: 0,
         detaild_id: 0,
-        room_number: ""
+        room_number: "",
+        major_category: "",
+        minor_category: "",
+        detailed_categories: ""
       }
     };
   },
@@ -550,8 +553,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this2.makeToast("success", _this2.$t("Successfully_Imported"), _this2.$t("Success"));
 
           Fire.$emit("Event_import");
-        } else if (response.data.status === false) {
-          _this2.makeToast("danger", _this2.$t("field_must_be_in_csv_format"), _this2.$t("Failed"));
+        } else if (response.data.status === false) {// this.makeToast(
+          //   "danger",
+          //   this.$t("field_must_be_in_csv_format"),
+          //   this.$t("Failed")
+          // );
         } // Complete the animation of theprogress bar.
 
 
@@ -559,9 +565,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       })["catch"](function (error) {
         self.ImportProcessing = false; // Complete the animation of theprogress bar.
 
-        nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
-
-        _this2.makeToast("danger", _this2.$t("Please_follow_the_import_instructions"), _this2.$t("Failed"));
+        nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done(); // this.makeToast(
+        //   "danger",
+        //   this.$t("Please_follow_the_import_instructions"),
+        //   this.$t("Failed")
+        // );
       });
     },
     getRooms: function getRooms(selectedValue) {
@@ -705,9 +713,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         _this8.makeToast("success", _this8.$t("Create.TitleDummy"), _this8.$t("Success"));
       })["catch"](function (error) {
-        self.SubmitProcessing = false;
-
-        _this8.makeToast("danger", _this8.$t("InvalidData"), _this8.$t("Failed"));
+        self.SubmitProcessing = false; // this.makeToast("danger", this.$t("InvalidData"), this.$t("Failed"));
       });
     },
     //---------------------------------------- Update Dummy-----------------\
@@ -726,9 +732,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         _this9.makeToast("success", _this9.$t("Update.TitleDummy"), _this9.$t("Success"));
       })["catch"](function (error) {
-        self.SubmitProcessing = false;
-
-        _this9.makeToast("danger", _this9.$t("InvalidData"), _this9.$t("Failed"));
+        self.SubmitProcessing = false; // this.makeToast("danger", this.$t("InvalidData"), this.$t("Failed"));
       });
     },
     //---------------------------------------- Reset Form -----------------\
@@ -797,7 +801,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             major_id: _this11.dummy.major_id,
             minor_id: _this11.dummy.minor_id,
             detaild_id: _this11.dummy.detaild_id,
-            room_number: _this11.dummy.room_number
+            room_number: _this11.dummy.room_number,
+            major_category: _this11.dummy.major_category,
+            minor_category: _this11.dummy.minor_category,
+            detailed_categories: _this11.dummy.detailed_categories
           }).then(function () {
             _this11.$swal(_this11.$t("Success"), _this11.$t("Success"), "success");
 
@@ -806,9 +813,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             // Complete the animation of theprogress bar.
             setTimeout(function () {
               return nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
-            }, 500);
-
-            _this11.$swal(_this11.$t("Delete.Failed"), _this11.$t("Delete.Therewassomethingwronge"), "warning");
+            }, 500); // this.$swal(
+            //   this.$t("Delete.Failed"),
+            //   this.$t("Delete.Therewassomethingwronge"),
+            //   "warning"
+            // );
           });
         }
       });
