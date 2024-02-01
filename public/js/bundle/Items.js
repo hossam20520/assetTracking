@@ -1490,7 +1490,7 @@ var render = function () {
                         [
                           _c("validation-provider", {
                             attrs: {
-                              name: "orical_number",
+                              name: "oracle_number",
                               rules: { required: true, min: 1, max: 55 },
                             },
                             scopedSlots: _vm._u([
@@ -1502,7 +1502,7 @@ var render = function () {
                                       "b-form-group",
                                       {
                                         attrs: {
-                                          label: _vm.$t("orical_number"),
+                                          label: _vm.$t("oracle_number"),
                                         },
                                       },
                                       [
@@ -1515,7 +1515,7 @@ var render = function () {
                                             "aria-describedby": "Name-feedback",
                                             label: "ar_name",
                                             placeholder:
-                                              _vm.$t("orical_number"),
+                                              _vm.$t("oracle_number"),
                                           },
                                           model: {
                                             value: _vm.item.orical_number,

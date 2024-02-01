@@ -221,15 +221,15 @@
             
             <b-col md="12">
                   <validation-provider
-                    name="orical_number"
+                    name="oracle_number"
                     :rules="{required:true , min:1 , max:55}"
                     v-slot="validationContext">
-                    <b-form-group :label="$t('orical_number')">
+                    <b-form-group :label="$t('oracle_number')">
                       <b-form-input
                         :state="getValidationState(validationContext)"
                         aria-describedby="Name-feedback"
                         label="ar_name"
-                        :placeholder="$t('orical_number')"
+                        :placeholder="$t('oracle_number')"
                         v-model="item.orical_number"
                       ></b-form-input>
                       <b-form-invalid-feedback id="Name-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
