@@ -31,7 +31,7 @@ class DummysController extends Controller
 
         $dummys = Dummy::where('deleted_at', '=', null)->where(function ($query) use ($request) {
                 return $query->when($request->filled('search'), function ($query) use ($request) {
-                    return $query->where('room_number', 'LIKE', "%{$request->search}%");
+                    return $query->where('room_number', '=', "{$request->search}");
                        
                 });
             });
