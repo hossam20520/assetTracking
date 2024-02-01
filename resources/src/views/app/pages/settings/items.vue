@@ -397,6 +397,7 @@
 <script>
 import NProgress from "nprogress";
 import VueBarcode from "vue-barcode";
+
 export default {
   metaInfo: {
     title: "Item"
