@@ -206,6 +206,9 @@ class DummysController extends Controller
             $item = new Item;
             $item->ar_name =   $dummy->item_name;
             $item->room_id = $room_id;
+            $item->image = "no-image.png";
+
+            
             $item->room_number = $room_number;
             $item->major_id = $this->getByCategoryData( $dummy->major_category);
             $item->minor_id = $this->getByCategoryData($dummy->minor_category);
