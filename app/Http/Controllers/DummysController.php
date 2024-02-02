@@ -270,7 +270,8 @@ class DummysController extends Controller
      
                         //-- Create New Product
                         foreach ($data as $key => $value) {
-                   
+
+
                             $Product = new Dummy;
                             $Product->room_name = $value['room_name'] == '' ? null : $value['room_name'];
                             $Product->item_name =  $value['item_name'] == '' ? null : $value['item_name'];
@@ -278,8 +279,33 @@ class DummysController extends Controller
                             $Product->floor = $value['floor'] == '' ? null : $value['floor'];
                             $Product->status = $value['status'] == '' ? null : $value['status'];
                             $Product->note = $value['note'] == '' ? null : $value['note'];
+                            $Product->major_category = $value['major_category'] == '' ? null : $value['major_category'];
+                            $Product->major_category = $value['major_category'] == '' ? null : $value['major_category'];
+                            $Product->minor_category = $value['minor_category'] == '' ? null : $value['minor_category'];
+                            $Product->detailed_categories = $value['detailed_categories'] == '' ? null : $value['detailed_categories'];
                             $Product->save();
-    
+                   
+                            // if($value['update'] == "yes"){
+                             
+                     
+
+                                // Dummy::whereId($id)->update([
+                                //     'room_name' => $value['ar_name'],
+                                //     'item_name' => $value['en_name'],
+                                //     'room_number' => $value['room_number'],
+                                //     'item_name' => $value['en_name'],
+                                //     'item_name' => $value['en_name'],
+                                //     'item_name' => $value['en_name'],
+                                //     'item_name' => $value['en_name'],
+                                // ]);
+                             
+                              
+                                 
+                            // }else{
+
+                            // $this->addData($value);
+                   
+                        // }
                          
                         }
                      
@@ -299,7 +325,22 @@ class DummysController extends Controller
     
         }
 
+public function addData($value){
+    $Product = new Dummy;
+    $Product->room_name = $value['room_name'] == '' ? null : $value['room_name'];
+    $Product->item_name =  $value['item_name'] == '' ? null : $value['item_name'];
+    $Product->room_number = $value['room_number'] == '' ? null : $value['room_number'];
+    $Product->floor = $value['floor'] == '' ? null : $value['floor'];
+    $Product->status = $value['status'] == '' ? null : $value['status'];
+    $Product->note = $value['note'] == '' ? null : $value['note'];
+    $Product->major_category = $value['major_category'] == '' ? null : $value['major_category'];
+    $Product->major_category = $value['major_category'] == '' ? null : $value['major_category'];
+    $Product->minor_category = $value['minor_category'] == '' ? null : $value['minor_category'];
+    $Product->detailed_categories = $value['detailed_categories'] == '' ? null : $value['detailed_categories'];
+    $Product->save();
 
+
+} 
 
 
     public function generateUUID(){
