@@ -275,8 +275,8 @@ class DummysController extends Controller
                              
                      
 
-                                Dummy::where('room_name', $value['room'])->update([
-                                    'room_name' => $value['room'],
+                                Dummy::where('room_name', $value['room_name'])->update([
+                                    'room_name' => $value['room_name'],
                                     'item_name' => $value['item_name'],
                                     'room_number' => $value['room_number'],
                                     'floor' => $value['floor'],
