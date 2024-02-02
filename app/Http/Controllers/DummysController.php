@@ -270,8 +270,27 @@ class DummysController extends Controller
      
                         //-- Create New Product
                         foreach ($data as $key => $value) {
+                   
+                            if($value['update'] == "yes"){
+                             
+                     
 
+                                Dummy::where('room_name', $value['room_name'])->update([
+                                    'room_name' => $value['room_name'],
+                                    'item_name' => $value['item_name'],
+                                    'room_number' => $value['room_number'],
+                                    'floor' => $value['floor'],
+                                    'note' => $value['note'],
+                                    'major_category' => $value['major_category'],
+                                    'minor_category' => $value['minor_category'],
+                                    'detailed_categories' => $value['detailed_categories'],
+                                ]);
+                             
+                              
+                                 
+                            }else{
 
+                            // $this->addData($value);
                             $Product = new Dummy;
                             $Product->room_name = $value['room_name'] == '' ? null : $value['room_name'];
                             $Product->item_name =  $value['item_name'] == '' ? null : $value['item_name'];
@@ -280,32 +299,10 @@ class DummysController extends Controller
                             $Product->status = $value['status'] == '' ? null : $value['status'];
                             $Product->note = $value['note'] == '' ? null : $value['note'];
                             $Product->major_category = $value['major_category'] == '' ? null : $value['major_category'];
-                            $Product->major_category = $value['major_category'] == '' ? null : $value['major_category'];
                             $Product->minor_category = $value['minor_category'] == '' ? null : $value['minor_category'];
                             $Product->detailed_categories = $value['detailed_categories'] == '' ? null : $value['detailed_categories'];
                             $Product->save();
-                   
-                            // if($value['update'] == "yes"){
-                             
-                     
-
-                                // Dummy::whereId($id)->update([
-                                //     'room_name' => $value['ar_name'],
-                                //     'item_name' => $value['en_name'],
-                                //     'room_number' => $value['room_number'],
-                                //     'item_name' => $value['en_name'],
-                                //     'item_name' => $value['en_name'],
-                                //     'item_name' => $value['en_name'],
-                                //     'item_name' => $value['en_name'],
-                                // ]);
-                             
-                              
-                                 
-                            // }else{
-
-                            // $this->addData($value);
-                   
-                        // }
+                        }
                          
                         }
                      
