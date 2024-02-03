@@ -1031,6 +1031,9 @@ class ProductsController extends BaseController
 
                     //-- Create New Product
                     foreach ($data as $key => $value) {
+
+
+
                         $category = Category::firstOrCreate(['name' => $value['category']]);
                         $category_id = $category->id;
 
@@ -1044,6 +1047,8 @@ class ProductsController extends BaseController
                         } else {
                             $brand_id = null;
                         }
+
+                        
                         $Product = new Product;
                         $Product->name = $value['name'] == '' ? null : $value['name'];
                         $Product->code = $value['code'] == '' ? '11111111' : $value['code'];
@@ -1071,7 +1076,11 @@ class ProductsController extends BaseController
                                 ];
                             }
                         }
+
+
                     }
+
+
                     if ($warehouses) {
                         product_warehouse::insert($product_warehouse);
                     }

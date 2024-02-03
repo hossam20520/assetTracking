@@ -553,11 +553,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this2.makeToast("success", _this2.$t("Successfully_Imported"), _this2.$t("Success"));
 
           Fire.$emit("Event_import");
-        } else if (response.data.status === false) {// this.makeToast(
-          //   "danger",
-          //   this.$t("field_must_be_in_csv_format"),
-          //   this.$t("Failed")
-          // );
+        } else if (response.data.status === false) {
+          _this2.makeToast("danger", _this2.$t("field_must_be_in_csv_format"), _this2.$t("Failed"));
         } // Complete the animation of theprogress bar.
 
 

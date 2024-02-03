@@ -29,8 +29,8 @@ class RoomsController extends Controller
 
         $rooms = Room::where('deleted_at', '=', null)->where('build_id',  $id)->where(function ($query) use ($request) {
                 return $query->when($request->filled('search'), function ($query) use ($request) {
-                    return $query->where('ar_name', 'LIKE', "%{$request->search}%")
-                        ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+                    return $query->where('room_number', '=', "{$request->search}");
+                       
                 });
             });
         $totalRows = $rooms->count();

@@ -236,6 +236,9 @@ class DummysController extends Controller
         // import Products
         public function import_dummy(Request $request)
         {
+
+
+          
             try {
                 \DB::transaction(function () use ($request) {
                     $file_upload = $request->file('dummys');
@@ -268,9 +271,10 @@ class DummysController extends Controller
                             return null;
                         }
      
+                      
                         //-- Create New Product
                         foreach ($data as $key => $value) {
-                   
+                        
                             if($value['update'] == "yes"){
                              
                      
@@ -285,11 +289,7 @@ class DummysController extends Controller
                                     'minor_category' => $value['minor_category'],
                                     'detailed_categories' => $value['detailed_categories'],
                                 ]);
-                             
-                              
-
-
-                                
+                
                                  
                             }else{
 
@@ -306,6 +306,9 @@ class DummysController extends Controller
                             $Product->detailed_categories = $value['detailed_categories'] == '' ? null : $value['detailed_categories'];
                             $Product->save();
                         }
+
+
+
                          
                         }
                      

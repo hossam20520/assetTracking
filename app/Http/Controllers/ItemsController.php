@@ -31,10 +31,10 @@ class ItemsController extends Controller
         $helpers = new helpers();
         $id = $request->id;
 
-        $items = Item::with('Major' , 'Minor'  , 'detailed')->where('deleted_at', '=', null)->where('room_id' , $id)->where(function ($query) use ($request) {
+        $items = Item::with('Major' , 'room' , 'Minor'  , 'detailed')->where('deleted_at', '=', null)->where('room_id' , $id)->where(function ($query) use ($request) {
                 return $query->when($request->filled('search'), function ($query) use ($request) {
-                    return $query->where('ar_name', 'LIKE', "%{$request->search}%")
-                        ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+                    return $query->where('uuid', '=', "{$request->search}");
+                       
                 });
             });
         $totalRows = $items->count();
@@ -75,11 +75,14 @@ class ItemsController extends Controller
  
             
             
-     
+            $roo = Item::with(  'room'   )->where('deleted_at', '=', null)->where('room_id' , $id)->first();
 
         return response()->json([
             'items' => $data,
             'totalRows' => $totalRows,
+
+            'room'=>  $roo->room ,
+
             'categories' => $categories,
         ]);
 

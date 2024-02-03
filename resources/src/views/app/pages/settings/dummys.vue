@@ -552,6 +552,7 @@ export default {
       NProgress.set(0.1);
       var self = this;
       self.ImportProcessing = true;
+      
       self.data.append("dummys", self.import_products);
       axios
         .post("dummys/import/csv", self.data)
@@ -565,11 +566,11 @@ export default {
             );
             Fire.$emit("Event_import");
           } else if (response.data.status === false) {
-            // this.makeToast(
-            //   "danger",
-            //   this.$t("field_must_be_in_csv_format"),
-            //   this.$t("Failed")
-            // );
+            this.makeToast(
+              "danger",
+              this.$t("field_must_be_in_csv_format"),
+              this.$t("Failed")
+            );
           }
           // Complete the animation of theprogress bar.
           NProgress.done();
@@ -578,6 +579,7 @@ export default {
           self.ImportProcessing = false;
           // Complete the animation of theprogress bar.
           NProgress.done();
+          
           // this.makeToast(
           //   "danger",
           //   this.$t("Please_follow_the_import_instructions"),

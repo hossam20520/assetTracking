@@ -417,6 +417,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -449,6 +459,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       categories: [],
       ImportProcessing: false,
       import_products: "",
+      room: {},
       item: {
         id: "",
         uuid: "",
@@ -707,7 +718,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get("items?page=" + page + "&SortField=" + this.serverParams.sort.field + "&SortType=" + this.serverParams.sort.type + "&search=" + this.search + "&id=" + id + "&limit=" + this.limit).then(function (response) {
         _this5.items = response.data.items;
         _this5.totalRows = response.data.totalRows;
-        _this5.categories = response.data.categories; // Complete the animation of theprogress bar.
+        _this5.categories = response.data.categories;
+        _this5.room = response.data.room; // Complete the animation of theprogress bar.
 
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
         _this5.isLoading = false;
@@ -906,6 +918,12 @@ var render = function () {
             staticClass: "loading_page spinner spinner-primary mr-3",
           })
         : _vm._e(),
+      _vm._v(" "),
+      _c("h2", [_vm._v("Room: " + _vm._s(_vm.room.ar_name))]),
+      _vm._v(" "),
+      _c("h4", [_vm._v("Room_number: " + _vm._s(_vm.room.room_number))]),
+      _vm._v(" "),
+      _c("h4", [_vm._v("uuid: " + _vm._s(_vm.room.uuid))]),
       _vm._v(" "),
       !_vm.isLoading
         ? _c(

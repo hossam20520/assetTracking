@@ -4,7 +4,17 @@
     <breadcumb :page="$t('Item')" :folder="$t('Settings')"/>
 
     <div v-if="isLoading" class="loading_page spinner spinner-primary mr-3"></div>
+
+    <h2>Room: {{ room.ar_name}}</h2>
+   
+    <h4>Room_number: {{ room.room_number}}</h4>
+    <h4>uuid: {{ room.uuid}}</h4>
     <b-card class="wrapper" v-if="!isLoading">
+
+
+
+
+
       <vue-good-table
         mode="remote"
         :columns="columns"
@@ -428,6 +438,7 @@ export default {
      categories:[], 
      ImportProcessing:false,
      import_products: "",
+     room:{},
       item: {
         id: "",
         uuid:"",
@@ -437,7 +448,7 @@ export default {
         purchase_date: new Date().toISOString().slice(0, 10),
        
         room_id:"",
- 
+       
         room_number:"",
         orical_number:"",
         major_id:"",
@@ -719,6 +730,7 @@ export default {
           this.items = response.data.items;
           this.totalRows = response.data.totalRows;
           this.categories = response.data.categories;
+          this.room = response.data.room;
 
           // Complete the animation of theprogress bar.
           NProgress.done();

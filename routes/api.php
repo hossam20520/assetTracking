@@ -28,7 +28,7 @@ Route::get('/v1/device/room', 'device\AssetsController@roomInfo');
 
 Route::get('/v1/device/inventory', 'device\AssetsController@inventory');
 
-
+Route::post('dummys/import/csv', 'DummysController@import_dummy');
 
 Route::get('/v1/device/session/list', 'device\AssetsController@listSessions');
 
@@ -216,7 +216,7 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
     Route::resource('dummys', 'DummysController');
     Route::post('dummys/delete/by_selection', 'DummysController@delete_by_selection');
     Route::post('dummys/insert/by_selection', 'DummysController@insert_by_selection');
-    Route::post('dummys/import/csv', 'DummysController@import_dummy');
+
 
 
     Route::resource('Products', 'ProductsController');

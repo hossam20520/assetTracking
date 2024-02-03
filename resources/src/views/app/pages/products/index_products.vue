@@ -43,12 +43,12 @@
           <b-button @click="Product_Excel()" size="sm" variant="outline-danger m-1">
             <i class="i-File-Excel"></i> EXCEL
           </b-button>
+
           <b-button
             @click="Show_import_products()"
             size="sm"
             variant="info m-1"
-            v-if="currentUserPermissions && currentUserPermissions.includes('product_import')"
-          >
+            v-if="currentUserPermissions && currentUserPermissions.includes('product_import')">
             <i class="i-Download"></i>
             {{ $t("import_products") }}
           </b-button>
@@ -292,10 +292,14 @@
 
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import NProgress from "nprogress";
-import jsPDF from "jspdf";
 import "jspdf-autotable";
+
+import jsPDF from "jspdf";
+import NProgress from "nprogress";
+import {
+    mapActions,
+    mapGetters,
+} from "vuex";
 
 export default {
   metaInfo: {
@@ -426,19 +430,27 @@ export default {
 
     //------------------------------ Event Import products -------------------------------\\
     onFileSelected(e) {
+
       this.import_products = "";
       let file = e.target.files[0];
       let errorFilesize;
 
+      
       if (file["size"] < 1048576) {
         // 1 mega = 1,048,576 Bytes
         errorFilesize = false;
+
+
       } else {
+
         this.makeToast(
           "danger",
           this.$t("file_size_must_be_less_than_1_mega"),
           this.$t("Failed")
         );
+
+
+
       }
 
       if (errorFilesize === false) {
@@ -726,6 +738,9 @@ export default {
         }
       });
     }
+
+
+
   }, //end Methods
 
   //-----------------------------Created function-------------------
