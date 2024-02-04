@@ -9,12 +9,12 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
-/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.es.min.js");
-/* harmony import */ var jspdf_autotable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jspdf-autotable */ "./node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js");
-/* harmony import */ var jspdf_autotable__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jspdf_autotable__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var jspdf_autotable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jspdf-autotable */ "./node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js");
+/* harmony import */ var jspdf_autotable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jspdf_autotable__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.es.min.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 var _methods;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -263,7 +263,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       assets: {}
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["currentUserPermissions"])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(["currentUserPermissions"])), {}, {
     columns: function columns() {
       return [{
         label: this.$t("image"),
@@ -306,7 +306,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     //-------------------------------------- Assets PDF ------------------------------\
     Asset_PDF: function Asset_PDF() {
       var self = this;
-      var pdf = new jspdf__WEBPACK_IMPORTED_MODULE_2__["default"]("p", "pt");
+      var pdf = new jspdf__WEBPACK_IMPORTED_MODULE_1__["default"]("p", "pt");
       var columns = [{
         title: "ar_name",
         dataKey: "ar_name"
@@ -344,8 +344,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       // Start the progress bar.
-      nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.start();
-      nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.set(0.1);
+      nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
+      nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.set(0.1);
       var self = this;
       self.ImportProcessing = true;
       self.data.append("items", self.import_products);
@@ -361,11 +361,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         } // Complete the animation of theprogress bar.
 
 
-        nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.done();
+        nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
       })["catch"](function (error) {
         self.ImportProcessing = false; // Complete the animation of theprogress bar.
 
-        nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.done();
+        nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
 
         _this.makeToast("danger", _this.$t("Please_follow_the_import_instructions"), _this.$t("Failed"));
       });
@@ -452,8 +452,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     //------------------------------------ Assets Excel ------------------------------\
     Asset_Excel: function Asset_Excel() {
       // Start the progress bar.
-      nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.start();
-      nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.set(0.1);
+      nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
+      nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.set(0.1);
       axios.get("Assets/export/Excel", {
         responseType: "blob",
         // important
@@ -468,10 +468,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         document.body.appendChild(link);
         link.click(); // Complete the animation of theprogress bar.
 
-        nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.done();
+        nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
       })["catch"](function () {
         // Complete the animation of theprogress bar.
-        nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.done();
+        nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
       });
     },
     // Simply replaces null values with strings=''
@@ -496,8 +496,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this3 = this;
 
     // Start the progress bar.
-    nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.start();
-    nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.set(0.1);
+    nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
+    nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.set(0.1);
     var self = this;
     self.ImportProcessing = true;
     self.data.append("items", self.import_products);
@@ -513,11 +513,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } // Complete the animation of theprogress bar.
 
 
-      nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.done();
+      nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
     })["catch"](function (error) {
       self.ImportProcessing = false; // Complete the animation of theprogress bar.
 
-      nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.done();
+      nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
 
       _this3.makeToast("danger", _this3.$t("Please_follow_the_import_instructions"), _this3.$t("Failed"));
     });
@@ -525,18 +525,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this4 = this;
 
     // Start the progress bar.
-    nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.start();
-    nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.set(0.1);
+    nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
+    nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.set(0.1);
     this.setToStrings();
     axios.get("Assets?page=" + page + "&en_name=" + this.Filter_en_name + "&ar_name=" + this.Filter_ar_name + "&SortField=" + this.serverParams.sort.field + "&SortType=" + this.serverParams.sort.type + "&search=" + this.search + "&limit=" + this.limit).then(function (response) {
       _this4.assets = response.data.assets;
       _this4.totalRows = response.data.totalRows; // Complete the animation of theprogress bar.
 
-      nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.done();
+      nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
       _this4.isLoading = false;
     })["catch"](function (response) {
       // Complete the animation of theprogress bar.
-      nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.done();
+      nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
       setTimeout(function () {
         _this4.isLoading = false;
       }, 500);
@@ -556,8 +556,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }).then(function (result) {
       if (result.value) {
         // Start the progress bar.
-        nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.start();
-        nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.set(0.1);
+        nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
+        nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.set(0.1);
         axios["delete"]("Assets/" + id).then(function () {
           _this5.$swal(_this5.$t("Delete.Deleted"), _this5.$t("Delete.AssetDeleted"), "success");
 
@@ -565,7 +565,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         })["catch"](function () {
           // Complete the animation of theprogress bar.
           setTimeout(function () {
-            return nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.done();
+            return nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
           }, 500);
 
           _this5.$swal(_this5.$t("Delete.Failed"), _this5.$t("Delete.AlreadyLinked"), "warning");
@@ -587,8 +587,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }).then(function (result) {
       if (result.value) {
         // Start the progress bar.
-        nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.start();
-        nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.set(0.1);
+        nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
+        nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.set(0.1);
         axios.post("Assets/delete/by_selection", {
           selectedIds: _this6.selectedIds
         }).then(function () {
@@ -598,7 +598,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         })["catch"](function () {
           // Complete the animation of theprogress bar.
           setTimeout(function () {
-            return nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.done();
+            return nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
           }, 500);
 
           _this6.$swal(_this6.$t("Delete.Failed"), _this6.$t("Delete.Therewassomethingwronge"), "warning");
@@ -617,7 +617,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
       setTimeout(function () {
-        return nprogress__WEBPACK_IMPORTED_MODULE_1___default.a.done();
+        return nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
       }, 500);
     });
     Fire.$on("Event_import", function () {

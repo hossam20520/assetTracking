@@ -324,6 +324,9 @@ class AssetsController extends BaseController
     {
         // $this->authorizeForUser($request->user('api'), 'view', Asset::class);
 
+
+
+        
         return Excel::download(new ItemsExport, 'List_Assets.xlsx');
     }
 

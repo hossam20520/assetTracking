@@ -205,10 +205,14 @@
 
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import NProgress from "nprogress";
-import jsPDF from "jspdf";
 import "jspdf-autotable";
+
+import jsPDF from "jspdf";
+import NProgress from "nprogress";
+import {
+    mapActions,
+    mapGetters,
+} from "vuex";
 
 export default {
   metaInfo: {
@@ -422,6 +426,7 @@ export default {
 
     //---- Event Sort Change
     onSortChange(params) {
+
       let field = "";
       if (params[0].field == "brand") {
         field = "brand_id";
@@ -437,6 +442,7 @@ export default {
         }
       });
       this.Get_Assets(this.serverParams.page);
+      
     },
 
     //---- Event Search
@@ -573,7 +579,7 @@ export default {
             this.search +
             "&limit=" +
             this.limit
-        )
+            )
         .then(response => {
           this.assets = response.data.assets;
           this.totalRows = response.data.totalRows;
