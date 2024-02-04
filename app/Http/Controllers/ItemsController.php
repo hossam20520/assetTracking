@@ -246,23 +246,23 @@ class ItemsController extends Controller
                         //-- Create New Product
                         foreach ($data as $key => $value) {
 
-
-                            
+                          
+                            $this->updateItem( $value['oracle_number'] ,  $value['uuid']);
                              
-                          $this->GetLocationID($value['location_uuid'] , $value['location_name']);
-                          $this->GetBuildID($value['room_floar_uuid'] , $value['room_floar'] , $value['room_floar_join_location_uuid']);
+                        //   $this->GetLocationID($value['location_uuid'] , $value['location_name']);
+                        //   $this->GetBuildID($value['room_floar_uuid'] , $value['room_floar'] , $value['room_floar_join_location_uuid']);
                             
-                          $this->SaveRoom($value['room_name'] , $value['room_uuid'] , $value['orical_number'] , $value['room_number'] , $value['room_floar_join_room'] );
+                        //   $this->SaveRoom($value['room_name'] , $value['room_uuid'] , $value['orical_number'] , $value['room_number'] , $value['room_floar_join_room'] );
                             
                          
-                           $this->insertMajor($value['major_name'] ,$value['major_uuid']);
+                        //    $this->insertMajor($value['major_name'] ,$value['major_uuid']);
 
-                           $this->insertMajor($value['minor_name'] ,$value['minor_uuid']);
+                        //    $this->insertMajor($value['minor_name'] ,$value['minor_uuid']);
 
-                           $this->insertMajor($value['detaild_name'] ,$value['detaild_uuid'] );
+                        //    $this->insertMajor($value['detaild_name'] ,$value['detaild_uuid'] );
 
 
-                           $this->insertItem($value['item_name'] ,  $value['room_uuid'] ,  $value['item_uuid'] ,   $value['major_uuid']  ,  $value['minor_uuid']  , $value['detaild_uuid']  , $value['orical_number']  );
+                        //    $this->insertItem($value['item_name'] ,  $value['room_uuid'] ,  $value['item_uuid'] ,   $value['major_uuid']  ,  $value['minor_uuid']  , $value['detaild_uuid']  , $value['orical_number']  );
 
 
                              
@@ -423,6 +423,15 @@ class ItemsController extends Controller
 
     //------------ Delete Item -----------\
 
+
+    public function updateItem($oracle_name , $uuid){
+        Item::where('uuid' , $uuid)->update([
+
+            'orical_number' => $oracle_name,
+       
+        ]);
+
+    }
     public function destroy(Request $request, $id)
     {
         // $this->authorizeForUser($request->user('api'), 'delete', Item::class);
