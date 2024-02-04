@@ -293,6 +293,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         tdClass: "text-left",
         thClass: "text-left"
       }, {
+        label: this.$t("oracle_number"),
+        field: "orical_number",
+        tdClass: "text-left",
+        thClass: "text-left"
+      }, {
         label: this.$t("Action"),
         field: "actions",
         html: true,

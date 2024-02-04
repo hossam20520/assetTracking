@@ -66,6 +66,8 @@ class AssetsController extends BaseController
             
             $item['id'] = $asset->id;
             $item['ar_name'] = $asset->ar_name;
+            $item['orical_number'] = $asset->orical_number;
+            
             $item['uuid'] = $asset->uuid;
             $item['room'] = $asset->room->ar_name;
             $item['location'] = $asset->room->floor->location->ar_name;
@@ -326,7 +328,7 @@ class AssetsController extends BaseController
 
 
 
-        
+
         return Excel::download(new ItemsExport, 'List_Assets.xlsx');
     }
 

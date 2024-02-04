@@ -286,6 +286,14 @@ export default {
           tdClass: "text-left",
           thClass: "text-left"
         },
+
+
+        {
+          label: this.$t("oracle_number"),
+          field: "orical_number",
+          tdClass: "text-left",
+          thClass: "text-left"
+        },
         
         {
           label: this.$t("Action"),

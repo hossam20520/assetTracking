@@ -550,6 +550,7 @@ const routes = [
                         ]
                     },
 
+                    
                     // categories
                     {
                         name: "categories",

@@ -247,7 +247,7 @@ class ItemsController extends Controller
                         foreach ($data as $key => $value) {
 
                           
-                            $this->updateItem( $value['oracle_number'] ,  $value['uuid']);
+                             $this->updateItem( $value['oracle_number'] ,  $value['uuid']);
                              
                         //   $this->GetLocationID($value['location_uuid'] , $value['location_name']);
                         //   $this->GetBuildID($value['room_floar_uuid'] , $value['room_floar'] , $value['room_floar_join_location_uuid']);
